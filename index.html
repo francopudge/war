@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Layout Custom Merah Hitam - G.o.d of War</title>
+    <link rel="icon" type="image/png" href="war.png" />
+    <style>
+        /* --- LOADING SCREEN --- */
+        #loader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #000000;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            z-index: 9999; transition: opacity 0.5s ease;
+        }
+
+        #loader img {
+            width: 120px; /* Ukuran lebih pas untuk HP */
+            margin-bottom: 20px;
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        #loader .loading-text {
+            color: #ff0000;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: 3px;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* --- BASIC STYLE --- */
+        html, body {
+            height: 100%; margin: 0;
+            display: flex; flex-direction: column;
+            background-color: #000000; color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow-x: hidden;
+        }
+
+        header {
+            position: fixed; top: 0; width: 100%; height: 60px;
+            background-color: #ff0000;
+            display: flex; align-items: center;
+            padding: 0 15px; box-sizing: border-box;
+            z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .header-left { display: flex; align-items: center; }
+        .header-left img { height: 35px; margin-right: 8px; }
+        .header-left span { font-weight: bold; text-transform: uppercase; font-size: 1rem; }
+
+        .music-control { margin-left: auto; cursor: pointer; display: flex; align-items: center; }
+        .music-control img { height: 30px; transition: transform 0.2s ease; }
+
+        /* --- CONTENT --- */
+        .main-content {
+            flex: 1; padding-top: 80px; padding-bottom: 100px; 
+            display: flex; flex-direction: column;
+            align-items: center; text-align: center;
+            padding-left: 10px; padding-right: 10px;
+        }
+
+        .hero-img { width: 120px; margin-bottom: 15px; }
+
+        h1 { font-size: 1.2rem; padding: 0 10px; line-height: 1.4; }
+
+        .tier-container { margin-bottom: 40px; width: 100%; max-width: 600px; }
+
+        .tier-title {
+            font-size: 1.3rem; font-weight: bold; color: #ff0000;
+            margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px;
+        }
+
+        .logo-box {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px; border-radius: 15px;
+            border: 2px dashed #ff0000;
+            display: flex; flex-wrap: wrap;
+            justify-content: center; gap: 15px;
+        }
+
+        .logo-box img {
+            height: 80px; /* Ukuran default lebih kecil untuk mobile */
+            cursor: pointer; transition: transform 0.3s ease;
+        }
+
+        /* --- MODAL --- */
+        .modal {
+            display: none; position: fixed; z-index: 2000;
+            left: 0; top: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            justify-content: center; align-items: center;
+        }
+
+        .modal-content {
+            width: 90%; /* Lebih lebar di HP agar jelas */
+            max-height: 80%; object-fit: contain;
+            border: 2px solid #ff0000; border-radius: 10px;
+        }
+
+        .close-btn {
+            position: absolute; top: 15px; right: 20px;
+            color: #fff; font-size: 35px; font-weight: bold; cursor: pointer;
+        }
+
+        footer {
+            position: fixed; bottom: 0; background-color: #ff0000;
+            color: #ffffff; padding: 12px; text-align: center;
+            width: 100%; font-size: 0.8rem; font-weight: bold; z-index: 1000;
+        }
+
+        /* --- MEDIA QUERY UNTUK HP (Layar < 600px) --- */
+        @media screen and (max-width: 600px) {
+            .header-left span { font-size: 0.9rem; }
+            .hero-img { width: 100px; }
+            h1 { font-size: 1.1rem; }
+            .logo-box img { height: 70px; } /* Gambar kartu lebih kecil di HP */
+            .tier-title { font-size: 1.1rem; }
+            footer { font-size: 0.7rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <img src="war.png" alt="Loading...">
+        <div class="loading-text" id="loadPercentage">0%</div>
+    </div>
+
+    <header>
+        <div class="header-left">
+            <img src="war.png" alt="War Logo">
+            <span>G.o.d of war</span>
+        </div>
+        <div class="music-control" onclick="toggleMusic()">
+            <img id="musicIcon" src="play.png" alt="Play Music">
+        </div>
+        <audio id="bgMusic" loop>
+            <source src="Yugioh Opening 5 Overlap Full Version HD.mp3" type="audio/mpeg">
+        </audio>
+    </header>
+
+    <main class="main-content">
+        <img src="war.png" alt="War Banner" class="hero-img">
+        <h1>Selamat Datang<br>Di Website Generations Of Duelist Divisi War</h1>
+
+        <br>
+
+        <div class="tier-container">
+            <div class="tier-title">Tier 1</div>
+            <div class="logo-box">
+                <img src="branded.jpg" alt="Branded" onclick="openModal('branded.jpg')">
+                <img src="sera.png" alt="Sera" onclick="openModal('sera.png')">
+            </div>
+        </div>
+
+        <div class="tier-container">
+            <div class="tier-title">Tier 2</div>
+            <div class="logo-box">
+                <img src="troper.jpg" alt="Troper" onclick="openModal('troper.jpg')">
+                <img src="tacon.jpg" alt="Tacon" onclick="openModal('tacon.jpg')">
+            </div>
+        </div>
+
+        <div class="tier-container">
+            <div class="tier-title">Tier 3</div>
+            <div class="logo-box">
+                <img src="punk.jpg" alt="Punk" onclick="openModal('punk.jpg')">
+                <img src="shino.png" alt="Shino" onclick="openModal('shino.png')">
+            </div>
+        </div>
+    </main>
+
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="close-btn">&times;</span>
+        <img class="modal-content" id="imgFull">
+    </div>
+
+    <footer>
+        &copy; 2026 Generations Of Duelist Divisi War. 
+    </footer>
+
+    <script>
+        window.addEventListener('load', function() {
+            let percentage = 0;
+            const loadText = document.getElementById('loadPercentage');
+            const loader = document.getElementById('loader');
+            const interval = setInterval(() => {
+                percentage++;
+                loadText.innerText = percentage + "%";
+                if (percentage >= 100) {
+                    clearInterval(interval);
+                    loader.style.opacity = '0';
+                    setTimeout(() => { loader.style.display = 'none'; }, 500);
+                }
+            }, 15); 
+        });
+
+        function openModal(src) {
+            document.getElementById("imageModal").style.display = "flex";
+            document.getElementById("imgFull").src = src;
+        }
+
+        function closeModal() {
+            document.getElementById("imageModal").style.display = "none";
+        }
+
+        const music = document.getElementById("bgMusic");
+        const musicIcon = document.getElementById("musicIcon");
+
+        function toggleMusic() {
+            if (music.paused) {
+                music.play();
+                musicIcon.src = "pause.png";
+            } else {
+                music.pause();
+                musicIcon.src = "play.png";
+            }
+        }
+    </script>
+</body>
+</html>
